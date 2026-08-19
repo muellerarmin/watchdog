@@ -11,11 +11,10 @@ import java.util.List;
 
 @Component
 public class DockerClient {
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private final WatchdogProperties properties;
 
-    DockerClient(ObjectMapper objectMapper, WatchdogProperties properties) {
-        this.objectMapper = objectMapper;
+    DockerClient(WatchdogProperties properties) {
         this.properties = properties;
     }
 
