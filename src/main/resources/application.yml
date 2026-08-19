@@ -23,4 +23,5 @@ watchdog:
   report-timezone: ${REPORT_TIMEZONE:UTC}
   docker-command: ${DOCKER_COMMAND:docker}
   recipients: ${SMTP_TO}
+  from: ${SMTP_FROM}
   subject-prefix: ${SUBJECT_PREFIX:[Docker Watchdog]}

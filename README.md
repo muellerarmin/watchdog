@@ -8,6 +8,8 @@ A weekly status report is sent independently of alerts.
 
 Copy `.env.example` to `.env`, then set the SMTP settings and recipients. The application reads `.env` on startup; real environment variables take precedence.
 
+Set `SMTP_FROM` to the sender address accepted by the SMTP relay. The relay can still rewrite or reject an unauthorized sender address; use an address or alias it permits.
+
 `CONTAINERS=all` monitors every container. To monitor a dedicated subset, set exact Docker names, for example `CONTAINERS=api,worker,postgres`.
 
 `CHECK_INTERVAL_MS` controls checks. `WEEKLY_REPORT_CRON` uses Spring's six-field cron format (second, minute, hour, day-of-month, month, day-of-week). `REPORT_TIMEZONE` is an IANA zone such as `Europe/Berlin`.

@@ -15,5 +15,6 @@ public record WatchdogProperties(
         @Positive long checkIntervalMs,
         @NotBlank String dockerCommand,
         @NotEmpty List<String> recipients,
+        @NotBlank String from,
         @NotBlank String subjectPrefix) {
 }

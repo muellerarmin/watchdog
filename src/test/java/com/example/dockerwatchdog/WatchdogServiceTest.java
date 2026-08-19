@@ -21,7 +21,7 @@ class WatchdogServiceTest {
     void alertsOnceForFailureAndAgainForRecovery() throws Exception {
         DockerClient dockerClient = mock(DockerClient.class);
         JavaMailSender mailSender = mock(JavaMailSender.class);
-        WatchdogProperties properties = new WatchdogProperties(List.of("api"), 60_000, "docker", List.of("ops@example.com"), "[Watchdog]");
+        WatchdogProperties properties = new WatchdogProperties(List.of("api"), 60_000, "docker", List.of("ops@example.com"), "watchdog@example.com", "[Watchdog]");
         WatchdogService service = new WatchdogService(dockerClient, mailSender, properties);
 
         when(dockerClient.listContainers())
@@ -37,6 +37,7 @@ class WatchdogServiceTest {
 
         ArgumentCaptor<SimpleMailMessage> messages = ArgumentCaptor.forClass(SimpleMailMessage.class);
         verify(mailSender, org.mockito.Mockito.times(2)).send(messages.capture());
+        assertThat(messages.getAllValues().get(0).getFrom()).isEqualTo("watchdog@example.com");
         assertThat(messages.getAllValues().get(0).getText()).contains("api: offline (exited)");
         assertThat(messages.getAllValues().get(1).getText()).contains("api: recovered");
         verifyNoMoreInteractions(mailSender);

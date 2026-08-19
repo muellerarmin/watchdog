@@ -104,6 +104,7 @@ public class WatchdogService {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(properties.recipients().toArray(String[]::new));
+            message.setFrom(properties.from());
             message.setSubject(properties.subjectPrefix() + " " + subject);
             message.setText(text);
             mailSender.send(message);
