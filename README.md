@@ -24,6 +24,12 @@ java -jar target/docker-watchdog-1.0.0.jar
 
 The process user must be permitted to run `docker ps --all`. For a non-root user, add it to the `docker` group and start a new session.
 
+## SMTP connectivity
+
+For Gmail, use `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=587`, `SMTP_STARTTLS=true`, and an app password for `SMTP_PASSWORD`; normal Gmail account passwords are not supported.
+
+The host must be allowed to make an outbound TCP connection to the configured SMTP port. An HTTPS proxy is for HTTP(S) traffic and does not proxy SMTP connections. If the network blocks port 587 or 465, use the organization's reachable SMTP relay or request an outbound firewall rule. If the network provides a SOCKS proxy, set `SMTP_SOCKS_HOST` and `SMTP_SOCKS_PORT`.
+
 ## Systemd
 
 Copy the built JAR, `.env`, and `docker-watchdog.service` to `/opt/docker-watchdog`, then:
