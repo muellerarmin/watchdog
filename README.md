@@ -1,6 +1,6 @@
 # Docker Watchdog
 
-Spring Boot service that periodically checks a local Docker daemon and sends SMTP email when a container becomes offline, unhealthy, starts health checking, disappears, or when Docker is unavailable. It sends one alert per state change and a recovery email when the problem clears, preventing repeated alerts for the same ongoing outage.
+Spring Boot service that periodically checks a local Docker daemon and sends SMTP email when a container becomes offline, unhealthy, starts health checking, disappears, or when Docker is unavailable. It sends one alert when a container or the Docker daemon enters a problem state and a recovery email when the problem clears, preventing repeated alerts for the same ongoing outage.
 
 A weekly status report is sent independently of alerts.
 
@@ -21,7 +21,7 @@ Containers without Docker health checks are considered healthy when their Docker
 ```bash
 cp .env.example .env
 mvn clean package
-java -jar target/docker-watchdog-1.0.0.jar
+java -jar target/docker-watchdog-1.0.1.jar
 ```
 
 The process user must be permitted to run `docker ps --all`. For a non-root user, add it to the `docker` group and start a new session.
@@ -43,3 +43,9 @@ sudo systemctl enable --now docker-watchdog
 ```
 
 The provided unit runs as root for Docker socket access. Change `User=` only after granting the chosen account Docker access.
+
+The unit uses the JDK `VFORK` process-launch fallback. This avoids `jspawnhelper` version mismatches when Ubuntu updates the JDK while the watchdog JVM is still running. Restart the service after JDK updates as normal maintenance:
+
+```bash
+sudo systemctl restart docker-watchdog
+```

@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>docker-watchdog</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>docker-watchdog</name>
     <properties>
         <java.version>21</java.version>

@@ -7,7 +7,7 @@ Wants=network-online.target
 Type=simple
 User=root
 WorkingDirectory=/opt/docker-watchdog
-ExecStart=/usr/bin/java -jar /opt/docker-watchdog/docker-watchdog-1.0.0.jar
+ExecStart=/usr/bin/java -Djdk.lang.Process.launchMechanism=VFORK -jar /opt/docker-watchdog/docker-watchdog-1.0.1.jar
 Restart=always
 RestartSec=10
 

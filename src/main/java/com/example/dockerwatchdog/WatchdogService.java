@@ -34,7 +34,7 @@ public class WatchdogService {
     public synchronized void checkStatus() {
         StatusSnapshot snapshot = currentStatus();
         if (!snapshot.dockerAvailable()) {
-            if (!snapshot.dockerProblem().equals(previousDockerProblem)) {
+            if (previousDockerProblem == null) {
                 send("Container status changed", "Docker status change detected at " + timestamp() + ".\n\nDocker daemon: " + snapshot.dockerProblem());
             }
             previousDockerProblem = snapshot.dockerProblem();
